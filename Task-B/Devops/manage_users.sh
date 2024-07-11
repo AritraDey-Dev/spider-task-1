@@ -1,67 +1,124 @@
 #!/bin/bash
 
-LOG_FILE="manage_users.log"
+LOGFILE="manage_users.log"
 
-# Function to create users, set permissions, and create files
-create_users() {
-    input_file="$1"
-
-    while IFS=',' read -r username group permissions; do
-        # Create user if not exists
-        if ! id "$username" &>/dev/null; then
-            sudo useradd -m -s /bin/bash "$username"
-            echo "User $username created." | tee -a "$LOG_FILE"
-        else
-            echo "User $username already exists. Skipping creation." | tee -a "$LOG_FILE"
-        fi
-
-        # Set group for the user
-        sudo usermod -aG "$group" "$username"
-        echo "User $username added to group $group." | tee -a "$LOG_FILE"
-
-        # Set permissions on home directory
-        sudo chmod "$permissions" "/home/$username"
-        echo "Permissions $permissions set for /home/$username." | tee -a "$LOG_FILE"
-
-        # Create projects directory and README.md
-        sudo -u "$username" mkdir -p "/home/$username/projects"
-        echo "Created /home/$username/projects directory." | tee -a "$LOG_FILE"
-        sudo -u "$username" sh -c "echo \"Welcome, $username! This is your projects directory.\" > /home/$username/projects/README.md"
-        echo "Created README.md in /home/$username/projects." | tee -a "$LOG_FILE"
-        
-        echo "---" | tee -a "$LOG_FILE"  # Separator for each user action
-    done < "$input_file"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a $LOGFILE
 }
 
-# Main script execution
-if [[ ! -f "$LOG_FILE" ]]; then
-    touch "$LOG_FILE"
+
+create_user() {
+    local username=$1
+    local group=$2
+    local permission=$3
+
+    if ! getent group $group > /dev/null; then
+        sudo groupadd $group
+        log "Group $group created."
+    fi
+
+
+    if ! id -u $username > /dev/null 2>&1; then
+        sudo useradd -m -d /home/$username -s /bin/bash -g $group $username
+        log "User $username created and added to group $group."
+    else
+        log "User $username already exists."
+    fi
+
+    sudo chmod $permission /home/$username
+    log "Permissions set to $permission for /home/$username."
+
+    sudo mkdir -p /home/$username/projects
+    log "Directory /home/$username/projects created."
+
+ 
+    echo "Welcome, $username! some intro message here." | sudo tee /home/$username/projects/README.md > /dev/null
+    log "README.md file created in /home/$username/projects with welcome message."
+
+ 
+    sudo chown -R $username:$group /home/$username/projects
+    sudo chmod 755 /home/$username/projects
+    sudo chmod 644 /home/$username/projects/README.md
+    log "Ownership and permissions set for /home/$username/projects and its contents."
+}
+
+
+delete_user() {
+    local username=$1
+
+
+    if id -u $username > /dev/null 2>&1; then
+        sudo userdel -r $username
+        log "User $username deleted along with their home directory."
+    else
+        log "User $username does not exist, skipping deletion."
+    fi
+}
+
+modify_user_permissions() {
+    local username=$1
+    local permission=$2
+
+
+    if id -u $username > /dev/null 2>&1; then
+        sudo chmod $permission /home/$username
+        log "Permissions for /home/$username changed to $permission."
+    else
+        log "User $username does not exist, cannot change permissions."
+    fi
+}
+
+interactive_mode() {
+    while true; do
+        echo "Interactive Mode:"
+        echo "1. Add User"
+        echo "2. Delete User"
+        echo "3. Modify User Permissions"
+        echo "4. Exit"
+
+        read -p "Choose an option: " option
+
+        case $option in
+            1)
+                read -p "Enter username: " username
+                read -p "Enter group: " group
+                read -p "Enter permissions (e.g., 755): " permission
+                create_user $username $group $permission
+                ;;
+            2)
+                read -p "Enter username: " username
+                delete_user $username
+                ;;
+            3)
+                read -p "Enter username: " username
+                read -p "Enter new permissions (e.g., 755): " permission
+                modify_user_permissions $username $permission
+                ;;
+            4)
+                echo "Exiting interactive mode."
+                break
+                ;;
+            *)
+                echo "Invalid option, please try again."
+                ;;
+        esac
+    done
+}
+
+
+if [ "$1" != "-i" ]; then
+    
+    if [ ! -f usernames.csv ]; then
+        log "Input file usernames.csv not found!"
+        exit 1
+    fi
+
+    while IFS=, read -r username group permission; do
+        create_user $username $group $permission
+    done < usernames.csv
+
+    log "User creation, permission management, and file setup completed successfully."
+else
+    interactive_mode
 fi
-
-echo "Starting user management script at $(date)" | tee -a "$LOG_FILE"
-
-# Check if sudo access is available
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root (sudo)." | tee -a "$LOG_FILE"
-   exit 1
-fi
-
-# Provide input file as an argument to the script
-if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <input_file>"
-    exit 1
-fi
-
-input_file="$1"
-
-# Validate input file
-if [[ ! -f "$input_file" ]]; then
-    echo "Error: Input file $input_file not found." | tee -a "$LOG_FILE"
-    exit 1
-fi
-
-# Execute function to create users and manage permissions
-create_users "$input_file"
-
-echo "Script execution completed at $(date)" | tee -a "$LOG_FILE"
 

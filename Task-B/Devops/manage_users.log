@@ -1,2 +1,46 @@
 Starting user management script at Wed Jun 26 21:20:55 IST 2024
 This script must be run as root (sudo).
+2024-07-11 22:02:48 - Group devops created.
+2024-07-11 22:02:48 - User john.doe created and added to group devops.
+2024-07-11 22:02:48 - Permissions set to 755 for /home/john.doe.
+2024-07-11 22:02:48 - Directory /home/john.doe/projects created.
+2024-07-11 22:02:48 - README.md file created in /home/john.doe/projects with welcome message.
+2024-07-11 22:02:48 - Ownership and permissions set for /home/john.doe/projects and its contents.
+2024-07-11 22:02:48 - Group developers created.
+2024-07-11 22:02:48 - User jane.doe created and added to group developers.
+2024-07-11 22:02:48 - Permissions set to 700 for /home/jane.doe.
+2024-07-11 22:02:48 - Directory /home/jane.doe/projects created.
+2024-07-11 22:02:48 - README.md file created in /home/jane.doe/projects with welcome message.
+2024-07-11 22:02:48 - Ownership and permissions set for /home/jane.doe/projects and its contents.
+2024-07-11 22:02:48 - User  already exists.
+2024-07-11 22:02:48 - Permissions set to  for /home/.
+2024-07-11 22:02:48 - Directory /home//projects created.
+2024-07-11 22:02:48 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:02:48 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:02:48 - User  already exists.
+2024-07-11 22:02:48 - Permissions set to  for /home/.
+2024-07-11 22:02:48 - Directory /home//projects created.
+2024-07-11 22:02:48 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:02:48 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:02:48 - User creation, permission management, and file setup completed successfully.
+2024-07-11 22:03:00 - User john.doe already exists.
+2024-07-11 22:03:00 - Permissions set to 755 for /home/john.doe.
+2024-07-11 22:03:00 - Directory /home/john.doe/projects created.
+2024-07-11 22:03:00 - README.md file created in /home/john.doe/projects with welcome message.
+2024-07-11 22:03:00 - Ownership and permissions set for /home/john.doe/projects and its contents.
+2024-07-11 22:03:00 - User jane.doe already exists.
+2024-07-11 22:03:00 - Permissions set to 700 for /home/jane.doe.
+2024-07-11 22:03:00 - Directory /home/jane.doe/projects created.
+2024-07-11 22:03:00 - README.md file created in /home/jane.doe/projects with welcome message.
+2024-07-11 22:03:00 - Ownership and permissions set for /home/jane.doe/projects and its contents.
+2024-07-11 22:03:00 - User  already exists.
+2024-07-11 22:03:00 - Permissions set to  for /home/.
+2024-07-11 22:03:00 - Directory /home//projects created.
+2024-07-11 22:03:00 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:03:00 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:03:00 - User  already exists.
+2024-07-11 22:03:00 - Permissions set to  for /home/.
+2024-07-11 22:03:00 - Directory /home//projects created.
+2024-07-11 22:03:00 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:03:00 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:03:00 - User creation, permission management, and file setup completed successfully.
