@@ -13,11 +13,12 @@ app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
 mongoose.connect(
-  "mongodb+srv://user123:Password123Tech@test.m6cb1nv.mongodb.net/recipetest?retryWrites=true&w=majority",
+  "mongodb://localhost:27017/test-db",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
 );
 
-app.listen(3001, () => console.log("Server started"));
+
+app.listen(3000, () => console.log("Server started"));

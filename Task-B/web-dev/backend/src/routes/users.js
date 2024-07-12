@@ -1,12 +1,30 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { z } from "zod";
 
 const router = express.Router();
 import { UserModel } from "../models/User.js";
 
+
+const registerSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+});
+
+const loginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { success, data, error } = registerSchema.safeParse(req.body);
+
+  if (!success) {
+    return res.status(400).json({ message: error.errors });
+  }
+
+  const { username, password } = data;
   const user = await UserModel.findOne({ username });
   if (user) {
     return res.status(400).json({ message: "Username already exists" });
@@ -18,20 +36,21 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { success, data, error } = loginSchema.safeParse(req.body);
 
+  if (!success) {
+    return res.status(400).json({ message: error.errors });
+  }
+
+  const { username, password } = data;
   const user = await UserModel.findOne({ username });
 
   if (!user) {
-    return res
-      .status(400)
-      .json({ message: "Username or password is incorrect" });
+    return res.status(400).json({ message: "Username or password is incorrect" });
   }
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    return res
-      .status(400)
-      .json({ message: "Username or password is incorrect" });
+    return res.status(400).json({ message: "Username or password is incorrect" });
   }
   const token = jwt.sign({ id: user._id }, "secret");
   res.json({ token, userID: user._id });
@@ -52,4 +71,3 @@ export const verifyToken = (req, res, next) => {
     res.sendStatus(401);
   }
 };
-
