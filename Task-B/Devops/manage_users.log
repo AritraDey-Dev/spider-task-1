@@ -44,3 +44,59 @@ This script must be run as root (sudo).
 2024-07-11 22:03:00 - README.md file created in /home//projects with welcome message.
 2024-07-11 22:03:00 - Ownership and permissions set for /home//projects and its contents.
 2024-07-11 22:03:00 - User creation, permission management, and file setup completed successfully.
+2024-07-11 22:08:21 - User john.doe already exists.
+2024-07-11 22:08:21 - Permissions set to 755 for /home/john.doe.
+2024-07-11 22:08:21 - Directory /home/john.doe/projects created.
+2024-07-11 22:08:21 - README.md file created in /home/john.doe/projects with welcome message.
+2024-07-11 22:08:21 - Ownership and permissions set for /home/john.doe/projects and its contents.
+2024-07-11 22:08:21 - User jane.doe already exists.
+2024-07-11 22:08:21 - Permissions set to 700 for /home/jane.doe.
+2024-07-11 22:08:21 - Directory /home/jane.doe/projects created.
+2024-07-11 22:08:21 - README.md file created in /home/jane.doe/projects with welcome message.
+2024-07-11 22:08:21 - Ownership and permissions set for /home/jane.doe/projects and its contents.
+2024-07-11 22:08:21 - Group web-dev created.
+2024-07-11 22:08:21 - User aritra already exists.
+2024-07-11 22:08:21 - Permissions set to 755 for /home/aritra.
+2024-07-11 22:08:21 - Directory /home/aritra/projects created.
+2024-07-11 22:08:21 - README.md file created in /home/aritra/projects with welcome message.
+2024-07-11 22:08:21 - Ownership and permissions set for /home/aritra/projects and its contents.
+2024-07-11 22:08:21 - User  already exists.
+2024-07-11 22:08:21 - Permissions set to  for /home/.
+2024-07-11 22:08:21 - Directory /home//projects created.
+2024-07-11 22:08:21 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:08:21 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:08:21 - User  already exists.
+2024-07-11 22:08:21 - Permissions set to  for /home/.
+2024-07-11 22:08:21 - Directory /home//projects created.
+2024-07-11 22:08:21 - README.md file created in /home//projects with welcome message.
+2024-07-11 22:08:21 - Ownership and permissions set for /home//projects and its contents.
+2024-07-11 22:08:21 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:51:22 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:51:58 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:52:04 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:52:07 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:52:46 - User creation, permission management, and file setup completed successfully.
+2024-07-12 15:59:51 - User creation, permission management, and file setup completed successfully.
+2024-07-12 16:02:37 - Batch mode activated.
+2024-07-12 16:02:37 - User creation, permission management, and file setup completed successfully.
+2024-07-12 16:02:45 - Batch mode activated.
+2024-07-12 16:02:45 - User creation, permission management, and file setup completed successfully.
+2024-07-12 16:04:41 - Batch mode activated.
+2024-07-12 16:04:41 - User creation, permission management, and file setup completed successfully.
+2024-07-12 16:05:27 - Interactive mode activated.
+2024-07-12 16:05:56 - Group app created.
+2024-07-12 16:05:56 - User sam created and added to group app.
+2024-07-12 16:05:56 - Permissions set to  for /home/sam.
+2024-07-12 16:05:56 - Directory /home/sam/projects created.
+2024-07-12 16:05:56 - README.md file created in /home/sam/projects with welcome message.
+2024-07-12 16:05:56 - Ownership and permissions set for /home/sam/projects and its contents.
+2024-07-12 17:36:01 - Batch mode activated.
+2024-07-12 17:36:01 - User creation, permission management, and file setup completed successfully.
+2024-07-12 17:36:10 - Interactive mode activated.
+2024-07-12 17:36:49 - Group dev created.
+2024-07-12 17:36:49 - User jimmy created and added to group dev.
+2024-07-12 17:36:49 - Permissions set to 755 for /home/jimmy.
+2024-07-12 17:36:49 - Directory /home/jimmy/projects created.
+2024-07-12 17:36:49 - README.md file created in /home/jimmy/projects with welcome message.
+2024-07-12 17:36:49 - Ownership and permissions set for /home/jimmy/projects and its contents.
+2024-07-12 17:40:04 - Interactive mode activated.

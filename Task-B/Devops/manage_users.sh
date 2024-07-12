@@ -6,7 +6,6 @@ log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a $LOGFILE
 }
 
-
 create_user() {
     local username=$1
     local group=$2
@@ -16,7 +15,6 @@ create_user() {
         sudo groupadd $group
         log "Group $group created."
     fi
-
 
     if ! id -u $username > /dev/null 2>&1; then
         sudo useradd -m -d /home/$username -s /bin/bash -g $group $username
@@ -31,21 +29,17 @@ create_user() {
     sudo mkdir -p /home/$username/projects
     log "Directory /home/$username/projects created."
 
- 
-    echo "Welcome, $username! some intro message here." | sudo tee /home/$username/projects/README.md > /dev/null
-    log "README.md file created in /home/$username/projects with welcome message."
+    echo "Welcome, $username! hi there" | sudo tee /home/$username/projects/README.md > /dev/null
+    log "README.md file created in /home/$username/projects with "
 
- 
     sudo chown -R $username:$group /home/$username/projects
     sudo chmod 755 /home/$username/projects
     sudo chmod 644 /home/$username/projects/README.md
     log "Ownership and permissions set for /home/$username/projects and its contents."
 }
 
-
 delete_user() {
     local username=$1
-
 
     if id -u $username > /dev/null 2>&1; then
         sudo userdel -r $username
@@ -58,7 +52,6 @@ delete_user() {
 modify_user_permissions() {
     local username=$1
     local permission=$2
-
 
     if id -u $username > /dev/null 2>&1; then
         sudo chmod $permission /home/$username
@@ -105,9 +98,15 @@ interactive_mode() {
     done
 }
 
+echo "Script arguments: $@"
+echo "First argument: $1"
 
-if [ "$1" != "-i" ]; then
-    
+if [ "$1" == "-i" ]; then
+    log "Interactive mode activated."
+    interactive_mode
+else
+    log "Batch mode activated."
+
     if [ ! -f usernames.csv ]; then
         log "Input file usernames.csv not found!"
         exit 1
@@ -118,7 +117,4 @@ if [ "$1" != "-i" ]; then
     done < usernames.csv
 
     log "User creation, permission management, and file setup completed successfully."
-else
-    interactive_mode
 fi
-

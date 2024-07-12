@@ -1,3 +1,4 @@
 -Go to the respective directory
 -run "chmod +x manage_users.sh" to make the file executable
--run "./manage_users.sh"
+-run "./manage_users.sh
+-For interactive mode run  "./manage_users.sh -i"
