@@ -9,12 +9,12 @@ import { UserModel } from "../models/User.js";
 
 const registerSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  password: z.string().min(3, "Password must be at least 8 characters long"),
 });
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  password: z.string().min(3, "Password is required"),
 });
 
 router.post("/register", async (req, res) => {

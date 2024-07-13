@@ -1,26 +1,26 @@
-import Navbar from "./components/navbar"
-import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
-import CreateRecipe from "./pages/create-recipe";
-import SavedRecipe from "./pages/saved-recipe";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
 import Home from "./pages/homes";
+import CreateRecipe from "./pages/create-recipe";
+import SavedRecipes from "./pages/saved-recipe";
+import Register from "./components/register";
+import Login from "./components/login";
+import axios from "axios";
 import Auth from "./pages/auth";
 
-function App(){
-  return( 
-  
+function App() {
+  return (
     <Router>
-      <Navbar className="bg-red-600"/>
+      <Navbar />
       <Routes>
-      <Route path="/" element={<Home/>}></Route>
-      <Route path="/auth" element={<Auth/>}></Route>
-      <Route path="/create-recipe" element={<CreateRecipe/>}></Route>
-      <Route path="/saved-recipe" element={<SavedRecipe/>}></Route>
-      
+        <Route path="/" element={<Home />} />
+        <Route path="/create-recipe" element={<CreateRecipe />} />
+        <Route path="/saved-recipe" element={<SavedRecipes />} />
+        <Route path="/auth" element={<Auth/>} />
       </Routes>
     </Router>
-
-
-  )
+  );
 }
 
-export  default App;
+export default App;
