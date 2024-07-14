@@ -3,8 +3,9 @@ import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import toast from "react-hot-toast";
 
-export  default function CreateRecipe(){
+const CreateRecipe = () => {
   const userID = useGetUserID();
   const [cookies, _] = useCookies(["access_token"]);
   const [recipe, setRecipe] = useState({
@@ -47,10 +48,10 @@ export  default function CreateRecipe(){
         }
       );
 
-      alert("Recipe Created");
+      toast.success("Recipe Created");
       navigate("/");
     } catch (error) {
-      console.error(error);
+      toast.error("please login to create a recipe")
     }
   };
 
@@ -68,7 +69,8 @@ export  default function CreateRecipe(){
             name="name"
             value={recipe.name}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
+            placeholder="Enter recipe name"
           />
         </div>
         <div>
@@ -80,8 +82,9 @@ export  default function CreateRecipe(){
             name="description"
             value={recipe.description}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
             rows="4"
+            placeholder="Enter recipe description"
           ></textarea>
         </div>
         <div>
@@ -95,7 +98,8 @@ export  default function CreateRecipe(){
               name="ingredients"
               value={ingredient}
               onChange={(event) => handleIngredientChange(event, index)}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-2"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2 mb-2"
+              placeholder={`Ingredient ${index + 1}`}
             />
           ))}
           <button
@@ -115,8 +119,9 @@ export  default function CreateRecipe(){
             name="instructions"
             value={recipe.instructions}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
             rows="6"
+            placeholder="Enter recipe instructions"
           ></textarea>
         </div>
         <div>
@@ -129,7 +134,8 @@ export  default function CreateRecipe(){
             name="imageUrl"
             value={recipe.imageUrl}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
+            placeholder="Enter image URL"
           />
         </div>
         <div>
@@ -142,7 +148,8 @@ export  default function CreateRecipe(){
             name="cookingTime"
             value={recipe.cookingTime}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
+            placeholder="Enter cooking time"
           />
         </div>
         <div className="flex justify-end">
@@ -157,3 +164,5 @@ export  default function CreateRecipe(){
     </div>
   );
 };
+
+export default CreateRecipe;
