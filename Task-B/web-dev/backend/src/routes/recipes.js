@@ -95,5 +95,24 @@ router.get("/savedRecipes/:userId", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.delete("/remove/:userId/:recipeId", async (req, res) => {
+  const { userId, recipeId } = req.params;
+
+  try {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Remove recipe from user's saved recipes
+    user.savedRecipes = user.savedRecipes.filter(id => id.toString() !== recipeId);
+    await user.save();
+
+    res.status(200).json({ message: "Recipe removed from saved recipes" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to remove recipe", error: err.message });
+  }
+});
 
 export { router as recipesRouter };

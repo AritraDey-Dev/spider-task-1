@@ -1,0 +1,5 @@
+-Go to Backend folder(cd backend)
+-run node index.js
+-go to frontend folder
+-run npm run dev
+-do npm install in the both the folder

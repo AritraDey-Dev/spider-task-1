@@ -13,12 +13,7 @@ app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
 mongoose.connect(
-  "mongodb://localhost:27017/test-db",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+  "mongodb://localhost:27017/test-db")
 
 
 app.listen(3000, () => console.log("Server started"));

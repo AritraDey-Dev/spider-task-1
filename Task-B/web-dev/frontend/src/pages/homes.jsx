@@ -4,12 +4,12 @@ import _ from "lodash";
 import Rating from "react-rating-stars-component";
 import { useGetUserID } from "../hooks/useGetUserID";
 
-
-export default function Home () {
+const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [cookingTimeFilter, setCookingTimeFilter] = useState("");
   const [ingredientsFilter, setIngredientsFilter] = useState("");
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [commentInputs, setCommentInputs] = useState({});
   const [commentsToShow, setCommentsToShow] = useState({});
   const userID = useGetUserID();
@@ -123,6 +123,24 @@ export default function Home () {
     }
   };
 
+  const handleIngredientSelection = (ingredient) => {
+    if (selectedIngredients.includes(ingredient)) {
+      setSelectedIngredients(selectedIngredients.filter(item => item !== ingredient));
+    } else {
+      setSelectedIngredients([...selectedIngredients, ingredient]);
+    }
+  };
+
+  const handleSearchByIngredients = () => {
+    const filtered = recipes.filter(recipe =>
+      selectedIngredients.every(ingredient =>
+        recipe.ingredients.includes(ingredient)
+      )
+    );
+    setFilteredRecipes(filtered);
+    initializeCommentStates(filtered);
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-4xl font-bold mb-8 text-center">Recipe Search and Filter</h1>
@@ -152,6 +170,28 @@ export default function Home () {
           className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
         >
           Reset
+        </button>
+      </div>
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">Select Ingredients</h2>
+        <div className="flex flex-wrap gap-2">
+          {["Water", "Oil", "Rice", "Flour", "Sugar"].map((ingredient, index) => (
+            <button
+              key={index}
+              onClick={() => handleIngredientSelection(ingredient)}
+              className={`px-4 py-2 rounded-md ${
+                selectedIngredients.includes(ingredient) ? "bg-green-500 text-white" : "bg-gray-300 text-gray-700"
+              } hover:bg-green-600`}
+            >
+              {ingredient}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={handleSearchByIngredients}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        >
+          Search Recipes by Ingredients
         </button>
       </div>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -208,22 +248,20 @@ export default function Home () {
               />
               <button
                 onClick={() => handleCommentSubmit(recipe._id)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mt-2"
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               >
-                Add Comment
+                Submit
               </button>
             </div>
 
-            <div className="mt-4">
-              <button
-                onClick={() => handleSaveRecipe(recipe._id)}
-                className={`px-4 py-2 rounded-md ${
-                  recipe.saved ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'
-                } hover:bg-green-600`}
-              >
-                {recipe.saved ? 'Saved' : 'Save'}
-              </button>
-            </div>
+            <button
+              onClick={() => handleSaveRecipe(recipe._id)}
+              className={`mt-4 px-4 py-2 rounded-md ${
+                recipe.saved ? "bg-red-500 text-white" : "bg-green-500 text-white"
+              } hover:bg-green-600`}
+            >
+              {recipe.saved ? "Unsave" : "Save"}
+            </button>
           </li>
         ))}
       </ul>
@@ -231,4 +269,4 @@ export default function Home () {
   );
 };
 
-
+export default Home;
